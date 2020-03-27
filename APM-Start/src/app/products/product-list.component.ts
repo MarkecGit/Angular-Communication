@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
 
 import { IProduct } from './product';
 import { ProductService } from './product.service';
+import { NgModel } from '@angular/forms';
 
 @Component({
     templateUrl: './product-list.component.html',
@@ -16,6 +17,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     errorMessage: string;
 
     @ViewChild('filterElement') filterElementRef: ElementRef;
+    @ViewChildren(NgModel)
+        inputElementRefs: QueryList<ElementRef>;
 
     private _listFilter: string;
     get listFilter(): string {
@@ -36,6 +39,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         //console.log();
         this.filterElementRef.nativeElement.focus();
+        console.log(this.inputElementRefs);
     }
 
     ngOnInit(): void {
